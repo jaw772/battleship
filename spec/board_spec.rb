@@ -19,7 +19,7 @@ RSpec.describe Board do
       expect(@board.cells.size).to eq(16)
 
       @board.cells.each do |cell|
-        expect(cell.key).to be(Cell)
+        expect(cell.keys).to be(Cell)
       end
     end
   end
