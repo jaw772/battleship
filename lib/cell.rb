@@ -7,6 +7,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = ship
+    @ship_position = ""
   end
 
   def place_ship(ship)
@@ -14,6 +15,11 @@ class Cell
     ship_position = @coordinate
     puts
   end
+
+  def empty?
+    ship_position == ""
+  end
+
 
 
 
