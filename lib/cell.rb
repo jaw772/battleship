@@ -9,6 +9,12 @@ class Cell
     @ship = ship
   end
 
+  def place_ship(ship)
+    @ship = ship
+    ship_position = @coordinate
+    puts
+  end
+
 
 
 end
