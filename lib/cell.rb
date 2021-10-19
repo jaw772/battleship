@@ -20,6 +20,16 @@ class Cell
     ship_position == ""
   end
 
+  def fired_upon?
+    @ship.health < @ship.length
+  end
+
+  def fire_upon
+    if @coordinate = ship_position
+      @ship.hit
+    else
+      @miss = true
+  end
 
 
 
