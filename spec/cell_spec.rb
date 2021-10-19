@@ -72,14 +72,14 @@ describe Cell do
     end
 
     it 'displays S in the cell when the optional argument is used' do
-      cell_1 = Cell.new("B4")
+      cell_1 = Cell.new("B2")
       cruiser = Ship.new("Cruiser", 3)
       cell_1.place_ship(cruiser)
       expect(cell_1.render(true)).to eq("S")
     end
 
     it 'displays H when a ship has been hit in the cell' do
-      cell_1 = Cell.new("B4")
+      cell_1 = Cell.new("B2")
       cruiser = Ship.new("Cruiser", 3)
       cell_1.fire_upon
       expect(cell_1.fired_upon?).to be true
@@ -87,14 +87,14 @@ describe Cell do
     end
 
     it 'displays M when a cell is fired upon but is a miss' do
-      cell_2 = Cell.new("B2")
+      cell_2 = Cell.new("B3")
       cruiser = Ship.new("Cruiser", 3)
       cell_2.fire_upon
       expect(cell_2.render).to eq("M")
     end
 
     it 'displays X when a ship has sunk' do
-      cell_1 = Cell.new("B4")
+      cell_1 = Cell.new("B2")
       cruiser = Ship.new("Cruiser", 3)
       cruiser.hit
       cruiser.hit
