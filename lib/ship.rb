@@ -15,7 +15,11 @@ class Ship
     @life
   end
 
-  
+  def sunk?
+    return true if @life == 0
+  end
+
+
 
 
 end
