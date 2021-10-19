@@ -1,5 +1,6 @@
 require './lib/ship'
 require './lib/cell'
+require './lib/board'
 
 RSpec.describe Board do
 
@@ -7,23 +8,23 @@ RSpec.describe Board do
     @board = Board.new
   end
 
-  describe 'initialize' do
+  describe '#initialize' do
     it 'is a board' do
       expect(@board).to be_a(Board)
     end
   end
 
-  describe 'cells method' do
+  describe '#cells method' do
     it 'creates cell objects' do
       expect(@board.cells).to be_a(Hash)
       expect(@board.cells.size).to eq(16)
 
       @board.cells.each do |cell|
-        expect(cell.keys).to be(Cell)
+        expect(cell.values).to be(Cell)
       end
     end
   end
-  describe 'valid_coordinate?' do
+  describe '#valid_coordinate?' do
     it 'returns boolean for valid coordinates' do
       expect(@board.valid_coordinate?("A1")).to be(true)
       expect(@board.valid_coordinate?("D4")).to be(true)
@@ -38,7 +39,7 @@ RSpec.describe Board do
     @submarine = Ship.new("Submarine", 2)
   end
 
-  describe 'valid_placement?' do
+  describe '#valid_placement?' do
     it 'has the same number of coordinates as the ship length' do
       expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to be(false)
       expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to be(false)
@@ -60,7 +61,7 @@ RSpec.describe Board do
     end
   end
 
-  describe 'place method' do
+  describe '#place method' do
     #resume here
   end
 end
