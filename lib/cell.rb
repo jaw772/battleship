@@ -31,6 +31,18 @@ class Cell
       @miss = true
   end
 
+  def render(reveal = false)
+    if reveal == true
+      puts "S"
+    end
 
-
+    if fired_upon? == true
+      ship_position = "H"
+    elsif fired_upon? == true && @ship.health = 0
+      ship_position = "X"
+    elsif @miss = true
+      @coordinate = "M"
+    else
+      @coordinate = "."
+    end
 end
