@@ -19,7 +19,10 @@ class Ship
     @life == 0
   end
 
+  #may need to update to say that we can't hit the ship once it has no health
   def hit
-    @life -= 1
+    if @life > 0
+      @life -= 1
+    end
   end
 end
