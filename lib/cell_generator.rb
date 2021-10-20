@@ -7,7 +7,7 @@ class CellGenerator
 
   def cells
     rows = ('A'..'D').to_a
-    columns = (('1'..'4').to_a)#*4
+    columns = (('1'..'4').to_a)
     grid = rows.product(columns)
     grid = grid.map {|square| square.join}
     grid.each do |square|
