@@ -54,7 +54,7 @@ describe Cell do
     it 'returns true when the cell has been fired upon' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
-      cell.fire_upon
+      cell.fired_upon
       expect(cell.fired_upon?).to be true
     end
   end
