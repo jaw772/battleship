@@ -44,7 +44,7 @@ describe Cell do
   end
 
   describe '#fired_upon?' do
-    it 'returns false when the cell has been fired upon' do
+    it 'returns false when the cell has not been fired upon' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
@@ -54,7 +54,8 @@ describe Cell do
     it 'returns true when the cell has been fired upon' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
-      cell.fired_upon
+      cell.place_ship(cruiser)
+      cell.fire_upon
       expect(cell.fired_upon?).to be true
     end
   end
@@ -81,22 +82,26 @@ describe Cell do
     it 'displays H when a ship has been hit in the cell' do
       cell_1 = Cell.new("B2")
       cruiser = Ship.new("Cruiser", 3)
-      cell_1.fired_upon
+      cell_1.place_ship(cruiser)
+      cell_1.fire_upon
       expect(cell_1.fired_upon?).to be true
       expect(cell_1.render).to eq("H")
     end
 
     it 'displays M when a cell is fired upon but is a miss' do
+      cell_1 = Cell.new("B2")
       cell_2 = Cell.new("B3")
       cruiser = Ship.new("Cruiser", 3)
-      cell_2.fired_upon
+      cell_1.place_ship(cruiser)
+      cell_2.fire_upon
       expect(cell_2.render).to eq("M")
     end
 
     it 'displays X when a ship has sunk' do
       cell_1 = Cell.new("B2")
       cruiser = Ship.new("Cruiser", 3)
-      cruiser.hit
+      cell_1.place_ship(cruiser)
+      cell_1.fire_upon
       cruiser.hit
       cruiser.hit
       expect(cruiser.sunk?).to be true
