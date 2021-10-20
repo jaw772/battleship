@@ -82,6 +82,7 @@ describe Cell do
     it 'displays H when a ship has been hit in the cell' do
       cell_1 = Cell.new("B2")
       cruiser = Ship.new("Cruiser", 3)
+      cell_1.place_ship(cruiser)
       cell_1.fire_upon
       expect(cell_1.fired_upon?).to be true
       expect(cell_1.render).to eq("H")
@@ -92,7 +93,6 @@ describe Cell do
       cell_2 = Cell.new("B3")
       cruiser = Ship.new("Cruiser", 3)
       cell_1.place_ship(cruiser)
-      #require "pry"; binding.pry
       cell_2.fire_upon
       expect(cell_2.render).to eq("M")
     end
@@ -100,7 +100,8 @@ describe Cell do
     it 'displays X when a ship has sunk' do
       cell_1 = Cell.new("B2")
       cruiser = Ship.new("Cruiser", 3)
-      cruiser.hit
+      cell_1.place_ship(cruiser)
+      cell_1.fire_upon
       cruiser.hit
       cruiser.hit
       expect(cruiser.sunk?).to be true
