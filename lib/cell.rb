@@ -1,5 +1,3 @@
-require './lib/ship'
-
 class Cell
 
   attr_accessor :coords, :ship_position, :coordinate
@@ -12,12 +10,12 @@ class Cell
 
   def place_ship(ship)
     @ship = ship
-    ship_position = @coordinate
+    @ship_position = @coordinate
     puts
   end
 
   def empty?
-    ship_position == ""
+    @ship_position == ""
   end
 
   def fired_upon?
@@ -25,7 +23,7 @@ class Cell
   end
 
   def fire_upon
-    if @coordinate = ship_position
+    if @coordinate = @ship_position
       @ship.hit
     else
       @miss = true
@@ -37,12 +35,14 @@ class Cell
     end
 
     if fired_upon? == true
-      ship_position = "H"
+      @ship_position = "H"
     elsif fired_upon? == true && @ship.health = 0
-      ship_position = "X"
-    elsif @miss = true
+      @ship_position = "X"
+    elsif @miss == true
       @coordinate = "M"
     else
       @coordinate = "."
     end
+  end
+end
 end
