@@ -14,16 +14,6 @@ RSpec.describe Board do
     end
   end
 
-  describe '#cells method' do
-    it 'creates cell objects' do
-      expect(@board.cells).to be_a(Hash)
-      expect(@board.cells.size).to eq(16)
-
-      @board.cells.each do |cell|
-        expect(cell.values).to be(Cell)
-      end
-    end
-  end
   describe '#valid_coordinate?' do
     it 'returns boolean for valid coordinates' do
       expect(@board.valid_coordinate?("A1")).to be(true)
