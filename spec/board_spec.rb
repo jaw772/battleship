@@ -62,6 +62,8 @@ RSpec.describe Board do
   end
 
   describe '#place method' do
-    #resume here
+    it 'places ship within the coordinates'
+    expect(@board.place(@cruiser, ["A1", "A2", "A3"])).to eq ["S", "S", "S"]
   end
+
 end
