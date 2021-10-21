@@ -1,11 +1,13 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/cell_generator'
 
 RSpec.describe Board do
 
   before(:each) do
-    @board = Board.new
+    @cells = CellGenerator.new
+    @board = Board.new(@cells)
   end
 
   describe '#initialize' do
@@ -52,6 +54,34 @@ RSpec.describe Board do
   end
 
   describe '#place method' do
-    #resume here
+    it 'places ship within the coordinates' do
+      expect(@board.place(@cruiser, ["A1", "A2", "A3"])).to eq ["S", "S", "S"]
+    end
+
+    it "cells contain a ship" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      cell_1 = @board.cells["A1"]
+      cell_2 = @board.cells["A2"]
+      cell_3 = @board.cells["A3"]
+      expect(cell_1.ship).to eq @cruiser
+      expect(cell_2.ship).to eq @cruiser
+      expect(cell_3.ship).to eq @cruiser
+      expect(cell_3.ship).to eq cell_2.ship
+    end
   end
+
+  describe '#valid_placement' do
+    it "checks for overlapping" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      expect(board.valid_placement?(@submarine, ["A1", "B1"])).to be false
+      expect(board.valid_placement?(@submarine, ["B1", "C1"])).to be true
+    end
+  end
+
+  describe '#render' do 
+    it "cells render when placed" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      expect(@board.render).to eq "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(@board.render(true)).to eq "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+    end
 end
