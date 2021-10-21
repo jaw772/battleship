@@ -2,6 +2,7 @@ class Board
   attr_accessor :cells
   def initialize(cells)
     @cells = cells
+    @the_board = the_board
   end
 
   def valid_coordinate?(coordinate)
@@ -35,5 +36,45 @@ class Board
     seq_col = guess.map {|guess| guess[1]}
     seq_col.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
   end
+  def create_board
+    board = CellGenerator.new()
+    @the_board = board.cells
+  end
+  def place(ship, coords)
+    coords.each do |coord|
+      @cell = @the_board.values[coord]
+      @cell.place_ship(ship)
+      @the_board[@cell]
+    end
+  end
+  def render
+    puts "  1 2 3 4"
+    print "A "
+    @the_board.values.each do |cell|
+      if cell.coordinate[0][0] == "A"
+        print "#{cell.render(true)} "
+      end
+    end
+    puts
+    print "B "
+    @the_board.values.each do |cell|
+      if cell.coordinate[0][0] == "B"
+        print "#{cell.render(true)} "
+      end
+    end
+    puts
+    print "C "
+    @the_board.values.each do |cell|
+      if cell.coordinate[0][0] == "C"
+        print "#{cell.render(true)} "
+      end
+    end
+    puts
+    print "D "
+    @the_board.values.each do |cell|
+      if cell.coordinate[0][0] == "D"
+        print "#{cell.render(true)} "
+      end
+    end
 
 end
