@@ -1,11 +1,10 @@
 class Cell
 
-  attr_accessor :coords, :ship_position, :coordinate
-  attr_accessor :ship, :miss
+  attr_accessor :coordinate, :ship, :miss, :empty, :shot_at
+
   def initialize(coordinate)
     @coordinate = coordinate
-    @ship = ship
-    @ship_position = nil
+    @ship = nil
     @shot_at = false
     @empty = true
   end
@@ -13,21 +12,14 @@ class Cell
   def place_ship(ship)
     @ship = ship
     @empty = false
-    @ship_position = @coordinate
-    puts
   end
 
   def empty?
     @empty
-    #@ship_position == ""
   end
 
   def fired_upon?
-    if @shot_at == true #&& @coordinate == @ship_position
-      true
-    else
-      false
-    end
+    @shot_at
   end
 
   def fire_upon
@@ -41,16 +33,16 @@ class Cell
   end
 
   def render(reveal = false)
-    if reveal == true
-      "S"
-    elsif @shot_at == false
+    if @shot_at == false && reveal == false
       '.'
     elsif @miss == true
       'M'
     elsif @miss == false && @ship.sunk? == false
       "H"
-    else @ship.sunk? == true
+    elsif @ship.sunk? == true
       "X"
+    elsif reveal == true
+      "S"
     end
   end
 end
