@@ -1,6 +1,6 @@
 class Board
   attr_accessor :cells
-  def initialize(cells)
+  def initialize
     @cells = cells
     @the_board = the_board
   end
@@ -12,30 +12,40 @@ class Board
 
   def valid_placement?(ship, guesses = [])
 
-    require 'pry'; binding.pry
+
     # a valid placement will have the same number of cells as the ship length
     ship.length == "cells guessed here.length"
     # a valid placement will have consecutive cells a1, a2, a3 or c1, c2, c3 for example
       # can use "A".ord and "D".ord to evaluate the numbers consecutive difference would
       # be equal to one
     # a valid placement will not have another ship in the cell already
-    ship == cells[guesses]
+    #ship == cells[guesses]
     # no diagonal ships
 
     #check_row/check_column/column_num will be replaced by the guesses
     #this will check that the first letter of each guess is the same
-    check_row.sort.each_cons(2).all? {|one, two| one.ord == two.ord}
-
-    #this one will check that the first letters are sequential
-    check_column.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
-
-    #if first letters are sequential then we can check the column number is the same
-    column_num.map {|guess| guess[1]}.uniq.length == 1
-
-    #if first letter is the same checks if numbers are sequential in a column
     seq_col = guess.map {|guess| guess[1]}
-    seq_col.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
+    #this will check that the first letter of each guess is the same
+    if check_row.sort.each_cons(2).all? {|one, two| one.ord == two.ord}
+      #if first letter is the same checks if numbers are sequential in a column
+      if seq_col.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
+      #   true
+      # else
+      #   false
+      end
+    #this one will check that the first letters are sequential
+    elsif check_column.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
+      #if first letters are sequential then we can check the column number is the same
+      if column_num.map {|guess| guess[1]}.uniq.length == 1
+      #   true
+      # else
+      #   false
+      end
+    # else
+    #   false
+    end
   end
+<<<<<<< HEAD
   def create_board
     board = CellGenerator.new()
     @the_board = board.cells
@@ -77,4 +87,6 @@ class Board
       end
     end
 
+=======
+>>>>>>> 73e17727bcc6ca7333db0cb03e2ccca595f89920
 end
