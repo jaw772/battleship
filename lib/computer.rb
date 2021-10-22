@@ -19,7 +19,13 @@ class Computer
   end
 
   def fire
-
+    # if @fired_cell.render == "M"
+    #     puts "Your shot on #{@player_choice} is a miss!"
+    #   elsif @fired_cell.render == "H"
+    #     puts "Your shot on #{@player_choice} is a hit!"
+    #   else
+    #     puts "Your shot on #{@player_choice} sunk the ship!"
+    #   end
   end
 
   def already_fired?
