@@ -1,7 +1,7 @@
 class Interface
   attr_reader
 
-  #the board may interact with player_turn and computer class
+  #I think interface will only interact with player_turn and computer class
   def initialize(player_board, npc_board)
     @player_board = player_board
     @npc_board = npc_board
@@ -24,24 +24,29 @@ class Interface
   end
 
   def setup_ships
-    #@npc_board.place
+    #@npc_board.place the npc will generate cells and put those into a board then place it's ships randomly
     puts "My ships are already ready."
     puts "Just waiting on you to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
     @player_board.render
 
+    #the player will enter the coordinates they want for both ships below and they will be added to a pre-generated player board
     puts "Enter the squares for the Cruiser (3 spaces):"
     place_in_cells = gets.chomp.upcase.split(' ')
 
-    place_in_cells.each {|cell| @player_board.valid_coordinate?(cell)}
-
-    if place_in_cells == @player_board.valid_coordinate? && place_in_cells == @player_board.valid_placement?
-      @player_board.place(@cruiser, place_in_cells)
-
-      puts "Enter valid squares for the Cruiser (3 space):"
+    until @player_board.place(@cruiser, place_in_cells) == true do
+      puts "Either you're trying to cheat or you've never played BATTLESHIP before, because that's not a valid spot for the ship."
+      puts "The boards only so big, let's use valid squares for the Cruiser this time:"
       place_in_cells = gets.chomp.upcase.split(' ')
-    else
-      "Either you're trying to cheat or you've never played BATTLESHIP before, because that's not a valid spot for the ship."
+    end
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    place_in_cells = gets.chomp.upcase.split(' ')
+
+    until @player_board.place(@submarine, place_in_cells) == true do
+      puts "The submarine is the small one... it only takes up two spaces."
+      puts "Eh, I'll wait, once you figure it out you can use some new squares.:"
+      place_in_cells = gets.chomp.upcase.split(' ')
     end
   end
 end
