@@ -5,9 +5,8 @@ class Board
     @cells = cells
   end
 
-  def valid_coordinate?(coordinate)
-    coord_check = coordinate.split(//, 2)
-    (coord_check[0] <= "D") && (coord_check[1].to_i <= 4)
+  def valid_coordinate?(check_cells = [])
+    check_cells.all? {|cell| @cells.include?(cell)}
   end
 
   def valid_placement?(ship, check_cells = [])
@@ -40,8 +39,12 @@ class Board
   end
 
   def place(ship, cells_placed = [])
-    cells_placed.each do |cell|
-      @cells[cell].place_ship(ship)
+    if valid_placement?(ship, cells_placed) && valid_coordinate?(cells_placed)
+      cells_placed.each do |cell|
+        @cells[cell].place_ship(ship)
+      end
+    else
+      'Invalid Placement'
     end
   end
 
