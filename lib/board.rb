@@ -46,34 +46,43 @@ class Board
   end
 
   def render(spot = false)
-  puts "  1 2 3 4"
-  print "A "
+    board_array = []
+    board_array <<   "  1 2 3 4 \n"
+  # puts "  1 2 3 4"
+  # print "A "
   @cells.values.each do |cell|
+    if cell.coordinate == "A1"
+      board_array << "A "
+    end
     if cell.coordinate[0][0] == "A"
-      print "#{cell.render(spot)} "
+      board_array << (cell.render(spot) + " ")
     end
   end
-  puts
-  print "B "
   @cells.values.each do |cell|
+    if cell.coordinate == "B1"
+      board_array << "\nB "
+    end
     if cell.coordinate[0][0] == "B"
-      print "#{cell.render(spot)} "
+      board_array << (cell.render(spot) + " ")
     end
   end
-  puts
-  print "C "
   @cells.values.each do |cell|
+    if cell.coordinate == "C1"
+      board_array << "\nC "
+    end
     if cell.coordinate[0][0] == "C"
-      print "#{cell.render(spot)} "
+      board_array << (cell.render(spot) + " ")
     end
   end
-  puts
-  print "D "
   @cells.values.each do |cell|
+    if cell.coordinate == "D1"
+      board_array << "\nD "
+    end
     if cell.coordinate[0][0] == "D"
-      print "#{cell.render(spot)} "
+      board_array << (cell.render(spot) + " ")
     end
   end
-end 
-
+  board_array << "\n"
+  board_array.join
+end
 end
