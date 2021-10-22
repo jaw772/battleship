@@ -80,5 +80,28 @@ RSpec.describe Board do
       expect(@board.render).to eq "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
       expect(@board.render(true)).to eq "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
     end
+
+    it 'shows hits and misses' do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      cell_1 = @board.cells["A1"]
+      cell_2 = @board.cells["A2"]
+      cell_11 = @board.cells["C3"]
+
+      cell_1.fire_upon
+      cell_2.fire_upon
+      cell_11.fire_upon
+      expect(@board.render(true)).to eq "  1 2 3 4 \nA H H S . \nB . . . . \nC . . M . \nD . . . . \n"
+    end
+
+    it "shows sunk" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      cell_1 = @board.cells["A1"]
+      cell_2 = @board.cells["A2"]
+      cell_3 = @board.cells["A3"]
+      cell_1.fire_upon
+      cell_2.fire_upon
+      cell_3.fire_upon
+      expect(@board.render(true)).to eq "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n"
+    end 
   end
 end
