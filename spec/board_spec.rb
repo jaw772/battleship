@@ -6,7 +6,7 @@ require './lib/cell_generator'
 RSpec.describe Board do
 
   before(:each) do
-    @cells = CellGenerator.new
+    @cells = CellGenerator.new.cells
     @board = Board.new(@cells)
   end
 
@@ -55,10 +55,6 @@ RSpec.describe Board do
 
   describe '#place method' do
     it 'places ship within the coordinates' do
-      expect(@board.place(@cruiser, ["A1", "A2", "A3"])).to eq ["S", "S", "S"]
-    end
-
-    it "cells contain a ship" do
       @board.place(@cruiser, ["A1", "A2", "A3"])
       cell_1 = @board.cells["A1"]
       cell_2 = @board.cells["A2"]
@@ -73,8 +69,8 @@ RSpec.describe Board do
   describe '#valid_placement' do
     it "checks for overlapping" do
       @board.place(@cruiser, ["A1", "A2", "A3"])
-      expect(board.valid_placement?(@submarine, ["A1", "B1"])).to be false
-      expect(board.valid_placement?(@submarine, ["B1", "C1"])).to be true
+      expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to be false
+      expect(@board.valid_placement?(@submarine, ["B1", "C1"])).to be true
     end
   end
 
