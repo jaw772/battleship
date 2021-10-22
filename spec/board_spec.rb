@@ -40,8 +40,8 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to be(false)
       expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to be(false)
       #should set up valid_placement to sort_by so these next two would be true
-      expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to be(false)
-      expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to be(false)
+      expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to be(true)
+      expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to be(true)
     end
     it "can't have diagonal coordinates" do
       expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to be(false)
@@ -84,5 +84,5 @@ RSpec.describe Board do
       expect(@board.render).to eq "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
       expect(@board.render(true)).to eq "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
     end
-  end 
+  end
 end
