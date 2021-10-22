@@ -102,6 +102,23 @@ RSpec.describe Board do
       cell_2.fire_upon
       cell_3.fire_upon
       expect(@board.render(true)).to eq "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n"
-    end 
+    end
+
+    it "can have a ship with a hit and ship marker" do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      @board.place(@submarine, ["C1", "D1"])
+      cell_1 = @board.cells["A1"]
+      cell_2 = @board.cells["A2"]
+      cell_3 = @board.cells["A3"]
+      cell_9 = @board.cells["C1"]
+      cell_13 = @board.cells["D1"]
+      cell_14 = @board.cells["D2"]
+      cell_1.fire_upon
+      cell_2.fire_upon
+      cell_3.fire_upon
+      cell_13.fire_upon
+      cell_14.fire_upon
+      expect(@board.render(true)).to eq "  1 2 3 4 \nA X X X . \nB . . . . \nC S . . . \nD H M . . \n"
+    end
   end
 end
