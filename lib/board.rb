@@ -44,7 +44,7 @@ class Board
         @cells[cell].place_ship(ship)
       end
     else
-      'Invalid Placement'
+      "Unless you're playing on a different board than me those are invalid coordinates. Why don't you try again?"
     end
   end
 
