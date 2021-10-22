@@ -34,4 +34,8 @@ class Board
       false
     end
   end
+
+  def place(ship, cells = [])
+    
+  end
 end
