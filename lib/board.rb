@@ -35,7 +35,10 @@ class Board
     end
   end
 
-  def place(ship, cells = [])
-    
+  def place(ship, cells_placed = [])
+    cells_placed.each do |cell|
+      @cells[cell].place_ship(ship)
+    end
+
   end
 end
