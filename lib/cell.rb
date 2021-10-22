@@ -33,7 +33,9 @@ class Cell
   end
 
   def render(reveal = false)
-    if @shot_at == false && reveal == false
+    if reveal == true && @empty == false && fired_upon? == false
+      "S"
+    elsif @shot_at == false
       '.'
     elsif @miss == true
       'M'
@@ -41,8 +43,8 @@ class Cell
       "H"
     elsif @ship.sunk? == true
       "X"
-    elsif reveal == true
-      "S"
+    else
+      ""
     end
   end
 end

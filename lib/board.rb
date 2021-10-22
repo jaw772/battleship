@@ -43,6 +43,46 @@ class Board
     cells_placed.each do |cell|
       @cells[cell].place_ship(ship)
     end
-
   end
+
+  def render(spot = false)
+    board_array = []
+    board_array <<   "  1 2 3 4 \n"
+  # puts "  1 2 3 4"
+  # print "A "
+  @cells.values.each do |cell|
+    if cell.coordinate == "A1"
+      board_array << "A "
+    end
+    if cell.coordinate[0][0] == "A"
+      board_array << (cell.render(spot) + " ")
+    end
+  end
+  @cells.values.each do |cell|
+    if cell.coordinate == "B1"
+      board_array << "\nB "
+    end
+    if cell.coordinate[0][0] == "B"
+      board_array << (cell.render(spot) + " ")
+    end
+  end
+  @cells.values.each do |cell|
+    if cell.coordinate == "C1"
+      board_array << "\nC "
+    end
+    if cell.coordinate[0][0] == "C"
+      board_array << (cell.render(spot) + " ")
+    end
+  end
+  @cells.values.each do |cell|
+    if cell.coordinate == "D1"
+      board_array << "\nD "
+    end
+    if cell.coordinate[0][0] == "D"
+      board_array << (cell.render(spot) + " ")
+    end
+  end
+  board_array << "\n"
+  board_array.join
+end
 end
