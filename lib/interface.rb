@@ -12,14 +12,14 @@ class Interface
   def start_game?
     puts "Welcome to BATTLESHIP \n Enter p to play. Enter q to quit."
     response = (gets.chomp).upcase
-    case response
-      when 'P'
-        "Yes! The game is afoot, or aboat, ah you get it."
-        setup_ships
-      when 'Q'
-        "Fine we didn't want to play with you anyways..."
-      else
+    until response == 'P' || 'Q'
         "Please enter valid option."
+    end
+    if response == 'P'
+      "Yes! The game is afoot, or aboat, ah you get it."
+      setup_ships
+    elsif'Q'
+      "Fine we didn't want to play with you anyways..."
     end
   end
 
