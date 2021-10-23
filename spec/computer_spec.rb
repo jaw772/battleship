@@ -8,19 +8,22 @@ describe Computer do
 
   before(:each) do
     @npc_cells = CellGenerator.new.cells
-    @npc_board = Board.new(@cells)
-    @npc = Computer.new
+    @npc_board = Board.new(@npc_cells)
+    @player_cells = CellGenerator.new.cells
+    @player_board = Board.new(@player_cells)
+    @npc = Computer.new(@npc_board, @player_board)
   end
 
   describe '#initialize' do
-    it 'is a computer' do
+    xit 'is a computer' do
       expect(@npc).to be_a(Computer)
     end
   end
 
   describe '#place_ship' do
     it 'places a ship in three consecutive locations' do
-      @npc.place_ship
+require 'pry'; binding.pry
+      # @npc.place_ship
       # continue here
     end
   end
