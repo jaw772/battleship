@@ -55,23 +55,15 @@ class Interface
   def take_turn
     puts "The battle has begun!"
     until (@npc_board.@cruiser.sunk? == true && @npc_board.@submarine.sunk? == true) || (@player_board.@cruiser.sunk? == true && @player_board.@submarine.sunk? == true) do
-      @completed_shot = false
       puts "=============COMPUTER BOARD============="
       @npc_board.render
       puts "==============PLAYER BOARD=============="
       @player_board.render(true)
 
       puts "Computer player fires!"
-      computer.fire
-      #@random_cell is the variable or method used to determine the random cell that is fired upon
-      if computer.@random_cell.render == "M"
-        puts "Computer's shot on #{@random_cell} is a miss!"
-      elsif computer.@random_cell.render == "H"
-        puts "Computer's shot on #{@random_cell} is a hit!"
-      else
-        puts "Computer's shot on #{@random_cell} sunk the ship!"
-      end
+      computer.fire(@player_board)
       puts "================================================================"
+      @completed_shot = false
       until @completed_shot == true
         puts "Enter the coordinate you would like to fire upon!"
         @player_choice == (gets.chomp).upcase
