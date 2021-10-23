@@ -15,19 +15,38 @@ describe Computer do
   end
 
   describe '#initialize' do
-    xit 'is a computer' do
+    it 'is a computer' do
       expect(@npc).to be_a(Computer)
     end
   end
 
   describe '#place_ships' do
-    it 'places a ship in three consecutive locations' do
-require 'pry'; binding.pry
-      # @npc.place_ships
-      # continue here
+    it 'places two ships' do
+      @npc.npc_board.cells.values.all? {|cell| cell.ship == nil}
+      #go through each cell and evaluate the ship
+      @npc.place_ships
+
+      expected = @npc.npc_board.cells.values.count {|cell| cell.ship != nil}
+      expect(expected).to eq(5)
+    end
+
+    it 'has a cruiser and a sub' do
+      @npc.place_ships
+      expected = @npc.npc_board.cells.values.count do |cell|
+        if cell.ship != nil
+          cell.ship.name == "Cruiser"
+        end
+      end
+
+      expect(expected).to eq(3)
+
+      expected = @npc.npc_board.cells.values.count do |cell|
+        if cell.ship != nil
+          cell.ship.name == "Submarine"
+        end
+      end
+
+      expect(expected).to eq(2)
     end
   end
-
-
-
 end
