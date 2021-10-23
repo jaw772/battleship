@@ -1,38 +1,52 @@
 class Computer
-  attr_accessor :board, :cells
+  attr_accessor :npc_board, :player_board
 
-  def initialize
-    @cells
-    @board
+  def initialize(npc_board, player_board)
+    @npc_board = npc_board
+    @player_board = player_board
     @placed_ships = [] # might need a way to access where the computer has placed ships?
-  end
-
-  # User hitting P can possibly trigger the computer_play method to create the cells and board.
-  def computer_play
-    @cells = CellGenerator.new
-    @board = Board.new(@cells)
   end
 
   # computer places ships in random and VALID locations (exists and not occupied)
   def place_ship
     sub_cells = []
     cruiser_cells = []
-    while sub_cells.length < 2
-      # make sure the location is valid
-      # After selecting the first key, the next cells should either go down or across.
-      sub_cells << @board.rand_key
+    # cruiser_cells = []
+    # while sub_cells.length < 2
+    #   # make sure the location is valid
+    #   # After selecting the first key, the next cells should either go down or across.
+    #   sub_cells << @board.keys.sample # saves one random key to the array
+    #   un
+    #   # @board[key].next
+    #
+    # end
+
+    sub_cells << @npc_board.cells.keys.sample
+    sub_cells << @npc_board.cells.keys.sample
+    npc_sub = Ship.new("Submarine", 2)
+
+    until @npc_board.valid_placement?(npc_sub, sub_cells)
+      sub_cells[1] = @npc_board.cells.keys.sample
     end
 
-    while cruiser_cells.length < 3
-      # make sure the location is valid
-      # make sure these aren't the same keys
-      # After selecting the first key, the next cells shoule either go down or across
-      cruiser_cells << @board.rand_key
+    @npc_board.place(npc_sub, sub_cells)
+
+    cruiser_cells << @npc_board.cells.keys.sample
+    cruiser_cells << @npc_board.cells.keys.sample
+    cruiser_cells << @npc_board.cells.keys.sample
+    npc_cruiser = Ship.new("Cruiser", 3)
+
+    until @npc_board.valid_placement?(npc_cruiser, cruiser_cells)
+      cruiser_cells[1] = @npc_board.cells.keys.sample
+      
     end
 
-    @board.place("Submarine", sub_cells)
+    @npc_board.place(npc_cruiser, cruiser_cells)
 
 
+
+
+    # @board.place("Cruiser", cruiser_cells)
   end
 
   def fire
@@ -40,13 +54,6 @@ class Computer
     # need to access
     fired_cells << @board.rand_key
 
-    # if @fired_cell.render == "M"
-    #     puts "Your shot on #{@player_choice} is a miss!"
-    #   elsif @fired_cell.render == "H"
-    #     puts "Your shot on #{@player_choice} is a hit!"
-    #   else
-    #     puts "Your shot on #{@player_choice} sunk the ship!"
-    #   end
   end
 
   def already_fired?
