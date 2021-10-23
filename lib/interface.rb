@@ -106,5 +106,6 @@ class Interface
       puts " "
       puts "                           Better luck next time!"
       start_game?
-  end
+    end
+  end 
 end
