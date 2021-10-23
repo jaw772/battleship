@@ -13,11 +13,13 @@ player_board = Board.new(cells)
 npc_board = Board.new(cells) #computer placing ships will need to effect this one
 
 computer = Computer.new
-turn = Turn.new
-interface = Interface.new
+turn = Turn.new(npc_board, player_board)
+interface = Interface.new(npc_board, player_board)
 
 
-interface.start_game
+if interface.start_game? == 'P'
+  turn.take_turn
+
 
 #instead of evaluating the response to start game here, we can do it in turn
 #thinking that this is essentially all we may need in our runner file?
