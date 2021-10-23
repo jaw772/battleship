@@ -65,11 +65,11 @@ class Interface
       computer.fire
       #@random_cell is the variable or method used to determine the random cell that is fired upon
       if computer.@random_cell.render == "M"
-        puts "Your shot on #{@random_cell} is a miss!"
+        puts "Computer's shot on #{@random_cell} is a miss!"
       elsif computer.@random_cell.render == "H"
-        puts "Your shot on #{@random_cell} is a hit!"
+        puts "Computer's shot on #{@random_cell} is a hit!"
       else
-        puts "Your shot on #{@random_cell} sunk the ship!"
+        puts "Computer's shot on #{@random_cell} sunk the ship!"
       end
       puts "================================================================"
       until @completed_shot == true
@@ -98,6 +98,11 @@ class Interface
 
     puts "********** GAME OVER **********"
 
+    puts "=============COMPUTER BOARD============="
+    @npc_board.render(true)
+    puts "==============PLAYER BOARD=============="
+    @player_board.render(true)
+
     if @npc_board.@cruiser.sunk? == true && @npc_board.@submarine.sunk? == true
       puts "Congratulations! The computer has been defeated and you have won the game!!!"
       start_game?
@@ -107,5 +112,5 @@ class Interface
       puts "                           Better luck next time!"
       start_game?
     end
-  end 
+  end
 end
