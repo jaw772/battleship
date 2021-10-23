@@ -39,22 +39,22 @@ class Computer
     @npc_board.place(npc_cruiser, cruiser_cells)
   end
 
-  def fire(@player_board)
-    @completed_shot = false
-    until @completed_shot == true
-      @computer_choice = @player_board.cells.keys.sample
-      if @player_board.valid_coordinate?(@computer_choice) == true
-        @fired_cell == @player_board.cells[@computer_choice]
-        if @fired_cell.fired_upon? == false
-          @fired_cell.fire_upon
-          if @fired_cell.render == "M"
-            puts "Computer's shot on #{@computer_choice} is a miss!"
-          elsif @fired_cell.render == "H"
-            puts "Computer's shot on #{@computer_choice} is a hit!"
+  def fire
+    completed_shot = false
+    until completed_shot == true
+      computer_choice = @player_board.cells.keys.sample
+      if @player_board.valid_coordinate?(computer_choice) == true
+        fired_cell = @player_board.cells[computer_choice]
+        if fired_cell.fired_upon? == false
+          fired_cell.fire_upon
+          if fired_cell.render == "M"
+            puts "Computer's shot on #{computer_choice} is a miss!"
+          elsif fired_cell.render == "H"
+            puts "Computer's shot on #{computer_choice} is a hit!"
           else
-            puts "Computer's shot on #{@computer_choice} sunk the ship!"
+            puts "Computer's shot on #{computer_choice} sunk the ship!"
           end
-          @completed_shot = true
+          completed_shot = true
         end
       end
     end
