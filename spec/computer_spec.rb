@@ -48,5 +48,17 @@ describe Computer do
 
       expect(expected).to eq(2)
     end
+    
+    describe '#fire' do
+      it 'can shoot at the players board' do
+        @npc.place_ships
+        @npc.fire
+        @npc.fire
+        @npc.fire
+        expected = @npc.player_board.cells.values.count {|cell| cell.shot_at == true}
+
+        expect(expected).to eq(3)
+      end
+    end
   end
 end
