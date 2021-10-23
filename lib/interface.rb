@@ -55,23 +55,12 @@ class Interface
   def take_turn
     puts "The battle has begun!"
     until (@npc_board.@cruiser.sunk? == true && @npc_board.@submarine.sunk? == true) || (@player_board.@cruiser.sunk? == true && @player_board.@submarine.sunk? == true) do
-      @completed_shot = false
       puts "=============COMPUTER BOARD============="
       @npc_board.render
       puts "==============PLAYER BOARD=============="
       @player_board.render(true)
 
-      puts "Computer player fires!"
-      computer.fire
-      #@random_cell is the variable or method used to determine the random cell that is fired upon
-      if computer.@random_cell.render == "M"
-        puts "Your shot on #{@random_cell} is a miss!"
-      elsif computer.@random_cell.render == "H"
-        puts "Your shot on #{@random_cell} is a hit!"
-      else
-        puts "Your shot on #{@random_cell} sunk the ship!"
-      end
-      puts "================================================================"
+      @completed_shot = false
       until @completed_shot == true
         puts "Enter the coordinate you would like to fire upon!"
         @player_choice == (gets.chomp).upcase
@@ -93,10 +82,18 @@ class Interface
         else
           puts "Please pick a valid coordinate."
         end
+        puts "================================================================"
+        puts "Computer player fires!"
+        computer.fire(@player_board)
       end
     end
 
     puts "********** GAME OVER **********"
+
+    puts "=============COMPUTER BOARD============="
+    @npc_board.render(true)
+    puts "==============PLAYER BOARD=============="
+    @player_board.render(true)
 
     if @npc_board.@cruiser.sunk? == true && @npc_board.@submarine.sunk? == true
       puts "Congratulations! The computer has been defeated and you have won the game!!!"
@@ -107,5 +104,5 @@ class Interface
       puts "                           Better luck next time!"
       start_game?
     end
-  end 
+  end
 end
