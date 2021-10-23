@@ -60,9 +60,6 @@ class Interface
       puts "==============PLAYER BOARD=============="
       @player_board.render(true)
 
-      puts "Computer player fires!"
-      computer.fire(@player_board)
-      puts "================================================================"
       @completed_shot = false
       until @completed_shot == true
         puts "Enter the coordinate you would like to fire upon!"
@@ -85,6 +82,9 @@ class Interface
         else
           puts "Please pick a valid coordinate."
         end
+        puts "================================================================"
+        puts "Computer player fires!"
+        computer.fire(@player_board)
       end
     end
 
