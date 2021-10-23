@@ -3,7 +3,7 @@ class Turn
     @npc_board = npc_board
     @player_board = player_board
   end
-  def start_round
+  def take_turn
     puts "The battle has begun!"
     until (@npc_board.@cruiser.sunk? == true && @npc_board.@submarine.sunk? == true) || (player.@cruiser.sunk? == true && player.@submarine.sunk == true) do
       @completed_shot = false
