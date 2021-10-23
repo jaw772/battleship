@@ -7,11 +7,13 @@ require './lib/computer'
 describe Computer do
 
   before(:each) do
+    @npc_sub = Ship.new("Submarine", 2)
+    @npc_cruiser = Ship.new("Cruiser", 3)
     @npc_cells = CellGenerator.new.cells
     @npc_board = Board.new(@npc_cells)
     @player_cells = CellGenerator.new.cells
     @player_board = Board.new(@player_cells)
-    @npc = Computer.new(@npc_board, @player_board)
+    @npc = Computer.new(@npc_board, @player_board, @npc_sub, @npc_cruiser)
   end
 
   describe '#initialize' do
@@ -48,7 +50,7 @@ describe Computer do
 
       expect(expected).to eq(2)
     end
-    
+
     describe '#fire' do
       it 'can shoot at the players board' do
         @npc.place_ships

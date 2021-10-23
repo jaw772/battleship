@@ -23,10 +23,15 @@ class Board
         seq_row = check_cells.map {|guess| guess[1]}
         seq_row.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
 
+        # true #see if this returns a true to check the interface conditions
+
         #this one will check that the first letters are sequential
         elsif check_cells.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
         #if first letters are sequential then we can check the number is the same
         check_cells.map {|guess| guess[1]}.uniq.length == 1
+
+        # true #see if this returns a true to check the interface conditions
+
         else
           false
         end
@@ -39,12 +44,13 @@ class Board
   end
 
   def place(ship, cells_placed = [])
-    if valid_placement?(ship, cells_placed) && valid_coordinate?(cells_placed)
+    if valid_coordinate?(cells_placed) && valid_placement?(ship, cells_placed)
       cells_placed.each do |cell|
         @cells[cell].place_ship(ship)
       end
+      true
     else
-      "Unless you're playing on a different board than me those are invalid coordinates. Why don't you try again?"
+      puts "Unless you're playing on a different board than me those are invalid coordinates. Why don't you try again?"
     end
   end
 
