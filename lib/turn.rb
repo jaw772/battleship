@@ -26,8 +26,8 @@ class Turn
       until @completed_shot == true
         puts "Enter the coordinate you would like to fire upon!"
         @player_choice == (gets.chomp).upcase
-        if @player_board.valid_coordinate?(@player_choice) == true
-          @fired_cell == @player_board.cells[@player_choice]
+        if @npc_board.valid_coordinate?(@player_choice) == true
+          @fired_cell == @npc_board.cells[@player_choice]
           if @fired_cell.fired_upon? == false
             @fired_cell.fire_upon
             if @fired_cell.render == "M"
