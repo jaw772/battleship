@@ -60,8 +60,4 @@ class Computer
     end
   end
 
-  def already_fired?
-
-  end
-
-end  # => :Computer
+end
