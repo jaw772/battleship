@@ -20,10 +20,10 @@ describe Computer do
     end
   end
 
-  describe '#place_ship' do
+  describe '#place_ships' do
     it 'places a ship in three consecutive locations' do
 require 'pry'; binding.pry
-      # @npc.place_ship
+      # @npc.place_ships
       # continue here
     end
   end
