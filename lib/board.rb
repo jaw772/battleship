@@ -54,44 +54,29 @@ class Board
     end
   end
 
-  def render(spot = false)
-    board_array = []
-    board_array <<   "  1 2 3 4 \n"
-  # puts "  1 2 3 4"
-  # print "A "
-  @cells.values.each do |cell|
-    if cell.coordinate == "A1"
-      board_array << "A "
-    end
-    if cell.coordinate[0][0] == "A"
-      board_array << (cell.render(spot) + " ")
-    end
-  end
-  @cells.values.each do |cell|
-    if cell.coordinate == "B1"
-      board_array << "\nB "
-    end
-    if cell.coordinate[0][0] == "B"
-      board_array << (cell.render(spot) + " ")
+  #create render row. take in an argument a letter to associate with each row
+  #can then use for extensions
+  def render_row(spot = false, letter)
+    @cells.values.each do |cell|
+      if cell.coordinate == "#{letter}1"
+        @board_array << "\n#{letter} "
+      end
+      if cell.coordinate[0][0] == "#{letter}"
+        @board_array << (cell.render(spot) + " ")
+      end
     end
   end
-  @cells.values.each do |cell|
-    if cell.coordinate == "C1"
-      board_array << "\nC "
-    end
-    if cell.coordinate[0][0] == "C"
-      board_array << (cell.render(spot) + " ")
-    end
+
+  #reflects use of a 4X4 board. Will have to change when we move
+  #to a larger sized board
+  def render_board(spot = false)
+    @board_array = ["  1 2 3 4 "]
+    render_row(spot, "A")
+    render_row(spot, "B")
+    render_row(spot, "C")
+    render_row(spot, "D")
+    @board_array << "\n"
+    @board_array.join
   end
-  @cells.values.each do |cell|
-    if cell.coordinate == "D1"
-      board_array << "\nD "
-    end
-    if cell.coordinate[0][0] == "D"
-      board_array << (cell.render(spot) + " ")
-    end
-  end
-  board_array << "\n"
-  board_array.join
-end
+
 end
