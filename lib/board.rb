@@ -69,4 +69,14 @@ class Board
     board_array << "\n"
     board_array.join
   end
+
+  #reflects use of a 4X4 board. Will have to change when we move
+  #to a larger sized board
+  def render_board(user_board, spot = false)
+    user_board.render_row(spot, "A")
+    user_board.render_row(spot, "B")
+    user_board.render_row(spot, "C")
+    user_board.render_row(spot, "D")
+  end
+
 end
