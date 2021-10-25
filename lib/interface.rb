@@ -55,12 +55,6 @@ class Interface
     take_turn
   end
 
-  def render_board(user_board, spot = false)
-    user_board.render_row(spot, "A")
-    user_board.render_row(spot, "B")
-    user_board.render_row(spot, "C")
-    user_board.render_row(spot, "D")
-  end 
 
   def take_turn
     puts "The battle has begun!"
@@ -69,7 +63,7 @@ class Interface
       puts "=============COMPUTER BOARD============="
       puts render_board(@npc_board)
       puts "==============PLAYER BOARD=============="
-      puts @player_board.render(true)
+      puts render_board(@player_board, true)
 
       @completed_shot = false
       until @completed_shot == true
