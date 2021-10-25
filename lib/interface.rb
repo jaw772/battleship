@@ -1,14 +1,10 @@
-class Interface
+require './lib/ship'
+require './lib/cell'
+require './lib/cell_generator'
+require './lib/board'
+require './lib/computer'
 
-  def initialize(npc_board, player_board)
-    @player_board = player_board
-    @npc_board = npc_board
-    @npc_sub = Ship.new("Submarine", 2)
-    @npc_cruiser = Ship.new("Cruiser", 3)
-    @npc = Computer.new(@npc_board, @player_board, @npc_sub, @npc_cruiser)
-    @cruiser = Ship.new('Cruiser', 3)
-    @submarine = Ship.new('Submarine', 2)
-  end
+class Interface
 
   def start_game?
     puts "Welcome to BATTLESHIP \nEnter p to play. Enter q to quit."
@@ -18,12 +14,26 @@ class Interface
       response = (gets.chomp).upcase
     end
     if response.eql?('P')
+      puts ''
       puts "Yes! The game is afoot, or aboat, ah you get it."
-      setup_ships
+      setup_game
     elsif response.eql?('Q')
       puts ''
       puts "Fine we didn't want to play with you anyways..."
     end
+  end
+
+  def setup_game
+    @player_cells = CellGenerator.new.cells
+    @npc_cells = CellGenerator.new.cells
+    @player_board = Board.new(@player_cells)
+    @npc_board = Board.new(@npc_cells)
+    @npc_sub = Ship.new("Submarine", 2)
+    @npc_cruiser = Ship.new("Cruiser", 3)
+    @npc = Computer.new(@npc_board, @player_board, @npc_sub, @npc_cruiser)
+    @cruiser = Ship.new('Cruiser', 3)
+    @submarine = Ship.new('Submarine', 2)
+    setup_ships
   end
 
   def setup_ships
@@ -31,6 +41,7 @@ class Interface
     puts "My ships are already ready."
     puts "Just waiting on you to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
+    puts ''
 
     puts @player_board.render
 
@@ -56,6 +67,7 @@ class Interface
   end
 
   def take_turn
+    puts ''
     puts "The battle has begun!"
 
     until (@npc_cruiser.sunk? == true && @npc_sub.sunk? == true) || (@cruiser.sunk? == true && @submarine.sunk? == true) do
@@ -108,12 +120,11 @@ class Interface
     if @npc_cruiser.sunk? == true && @npc_sub.sunk? == true
       puts "Congratulations! The computer has been defeated and you have won the game!!!"
       puts ''
-      start_game?
     else
       puts "Fortunately for the computer and unfortunately for you, the computer was won this battle!"
       puts " "
       puts "                           Better luck next time!"
-      start_game?
     end
+    start_game?
   end
 end

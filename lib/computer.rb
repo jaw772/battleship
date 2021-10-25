@@ -23,7 +23,7 @@ class Computer
 
     board_options = [][]
 
-    
+
 
 
 
@@ -32,6 +32,7 @@ class Computer
     # Need to see what the adjacent squares are on the board.
     # =>
 
+<<<<<<< HEAD
     # ship_size = 3
     # array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     # chosen_cells = []
@@ -77,30 +78,30 @@ class Computer
   #   @npc_board.place(@npc_cruiser, cruiser_cells)
   # end
   #
-  # def fire
-  #   completed_shot = false
-  #   until completed_shot == true
-  #     @computer_choice = @player_board.cells.keys.sample
-  #     if @player_board.valid_coordinate?([@computer_choice]) == true
-  #       @fired_cell = @player_board.cells[@computer_choice]
-  #       if @fired_cell.fired_upon? == false
-  #         @fired_cell.fire_upon
-  #         # fire_results(fired_cell, computer_choice)
-  #         completed_shot = true
-  #       end
-  #     end
-  #   end
+  def fire
+    completed_shot = false
+    until completed_shot == true
+      computer_choice = @player_board.cells.keys.sample
+      if @player_board.valid_coordinate?([computer_choice]) == true
+        fired_cell = @player_board.cells[computer_choice]
+        if fired_cell.fired_upon? == false
+          fired_cell.fire_upon
+          fire_results(fired_cell, computer_choice)
+          completed_shot = true
+        end
+      end
+    end
   end
 
-  def fire_results
-    if @fired_cell.render == "M"
-      puts "Computer's shot on #{@computer_choice} is a miss!"
+  def fire_results(fired_cell, computer_choice)
+    if fired_cell.render == "M"
+      puts "Computer's shot on #{computer_choice} is a miss!"
       puts ''
-    elsif @fired_cell.render == "H"
-      puts "Computer's shot on #{@computer_choice} is a hit!"
+    elsif fired_cell.render == "H"
+      puts "Computer's shot on #{computer_choice} is a hit!"
       puts ''
     else
-      puts "Computer's shot on #{@computer_choice} sunk the ship!"
+      puts "Computer's shot on #{computer_choice} sunk the ship!"
       puts ''
     end
   end
