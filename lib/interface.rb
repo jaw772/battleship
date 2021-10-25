@@ -32,7 +32,7 @@ class Interface
     puts "Just waiting on you to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
 
-    puts @player_board.render
+    puts @player_board.render_board
 
     puts "Enter the squares for the Cruiser (3 spaces):"
     place_in_cells = gets.chomp.upcase.split(' ')
@@ -61,10 +61,9 @@ class Interface
 
     until (@npc_cruiser.sunk? == true && @npc_sub.sunk? == true) || (@cruiser.sunk? == true && @submarine.sunk? == true) do
       puts "=============COMPUTER BOARD============="
-      puts render_board(@npc_board)
+      puts @npc_board.render_board()
       puts "==============PLAYER BOARD=============="
-      puts render_board(@player_board, true)
-
+      puts @player_board.render_board(true)
       @completed_shot = false
       until @completed_shot == true
         puts "Enter the coordinate you would like to fire upon!"
@@ -102,9 +101,9 @@ class Interface
     puts "************** GAME OVER ***************"
     puts ''
     puts "=============COMPUTER BOARD============="
-    puts @npc_board.render(true)
+    puts @npc_board.render_board(true)
     puts "==============PLAYER BOARD=============="
-    puts @player_board.render(true)
+    puts @player_board.render_board(true)
 
     if @npc_cruiser.sunk? == true && @npc_sub.sunk? == true
       puts "Congratulations! The computer has been defeated and you have won the game!!!"
