@@ -1,3 +1,5 @@
+require './lib/cell'
+
 class CellGenerator
   attr_reader :coordinates
 
