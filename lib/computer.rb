@@ -39,25 +39,28 @@ class Computer
   def fire
     completed_shot = false
     until completed_shot == true
-      computer_choice = @player_board.cells.keys.sample
-      if @player_board.valid_coordinate?([computer_choice]) == true
-        fired_cell = @player_board.cells[computer_choice]
-        if fired_cell.fired_upon? == false
-          fired_cell.fire_upon
-          if fired_cell.render == "M"
-            puts "Computer's shot on #{computer_choice} is a miss!"
-            puts ''
-          elsif fired_cell.render == "H"
-            puts "Computer's shot on #{computer_choice} is a hit!"
-            puts ''
-          else
-            puts "Computer's shot on #{computer_choice} sunk the ship!"
-            puts ''
-          end
+      @computer_choice = @player_board.cells.keys.sample
+      if @player_board.valid_coordinate?([@computer_choice]) == true
+        @fired_cell = @player_board.cells[@computer_choice]
+        if @fired_cell.fired_upon? == false
+          @fired_cell.fire_upon
+          # fire_results(fired_cell, computer_choice)
           completed_shot = true
         end
       end
     end
   end
 
+  def fire_results
+    if @fired_cell.render == "M"
+      puts "Computer's shot on #{@computer_choice} is a miss!"
+      puts ''
+    elsif @fired_cell.render == "H"
+      puts "Computer's shot on #{@computer_choice} is a hit!"
+      puts ''
+    else
+      puts "Computer's shot on #{@computer_choice} sunk the ship!"
+      puts ''
+    end
+  end
 end
