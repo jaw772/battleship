@@ -55,12 +55,19 @@ class Interface
     take_turn
   end
 
+  def render_board(user_board, spot = false)
+    user_board.render_row(spot, "A")
+    user_board.render_row(spot, "B")
+    user_board.render_row(spot, "C")
+    user_board.render_row(spot, "D")
+  end 
+
   def take_turn
     puts "The battle has begun!"
 
     until (@npc_cruiser.sunk? == true && @npc_sub.sunk? == true) || (@cruiser.sunk? == true && @submarine.sunk? == true) do
       puts "=============COMPUTER BOARD============="
-      puts @npc_board.render
+      puts render_board(@npc_board)
       puts "==============PLAYER BOARD=============="
       puts @player_board.render(true)
 
