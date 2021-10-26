@@ -106,6 +106,7 @@ class Interface
       puts ''
       puts "Computer player fires!"
       @npc.fire
+      @npc.fire_results
     end
 
     puts "************** GAME OVER ***************"
