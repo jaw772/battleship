@@ -54,21 +54,23 @@ class Computer
         end
       end
     else
-      # Sort the nested arrays by column
+      # Computer decided to place a ship vertically.
+      # First sort by column in the nested arrays by column
+      require 'pry'; binding.pry
       vertical_array = board_array.transpose
-      # find a sample row in the nested arrays
-      sample_row = board_array.sample
+      # Start sample row in the nested arrays
+      sample_column = vertical_array.sample
       # find a random starting point within the random row.
-      start_cell = sample_row.sample
+      start_cell = sample_column.sample
 
       sub_cells << start_cell
-      start_index = sample_row.rindex(start_cell)
+      start_index = sample_column.rindex(start_cell)
 
-      #if there is room to the right of the starting cell...
+      #if there is room above the starting cell...
       if start_index + (submarine_length - 1) < board_length
         # iterate for the amount of cells needed to place the rest of a ship
         (submarine_length-1).times do |num|
-          next_cell = sample_row[start_index + (num+1)]
+          next_cell = sample_column[start_index + (num+1)]
           # add the next cell to the list of spaces
           sub_cells.push(next_cell)
         end
@@ -76,7 +78,7 @@ class Computer
       elsif start_index - (submarine_length - 1) > 0
         # iterate for the amount of cells needed to place the rest of a ship
         (submarine_length-1).times do |num|
-          prev_cell = sample_row[start_index - (num+1)]
+          prev_cell = sample_column[start_index - (num+1)]
           # add the previous cell to the list of spaces
           sub_cells.push(prev_cell)
         end
