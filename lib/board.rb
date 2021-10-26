@@ -54,6 +54,7 @@ class Board
   end
 
   def render_row(spot = false, letter)
+
     @cells.values.each do |cell|
       if cell.coordinate == "#{letter}1"
         @board_array << "\n#{letter} "
@@ -64,12 +65,24 @@ class Board
     end
   end
 
-  def render_board(spot = false)
-    @board_array = ["  1 2 3 4 "]
-    render_row(spot, "A")
-    render_row(spot, "B")
-    render_row(spot, "C")
-    render_row(spot, "D")
+  def render_board(row, column, spot = false)
+    @alphabet  = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+      "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
+    @board_array = ["  "]
+    @row = row.to_i
+    @column = column
+    letter = @row - 1
+    rows = ('A'..@alphabet[letter]).to_a
+    columns = (('1'..@column).to_a)
+    #numbers_row = columns.map { |number| number + " "  }
+    columns.each do |number|
+      @board_array << number.to_i
+      @board_array.push(" ")
+    end
+    rows.each do |row|
+      render_row(spot, row)
+    end
     @board_array << "\n"
     @board_array.join
   end
