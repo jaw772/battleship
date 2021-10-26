@@ -14,25 +14,38 @@ class Computer
     cruiser_cells = []
     # Computer con place ships randomly in valid locations
     # need a random starting point
-    require 'pry'; binding.pry
+    board_length = Math.sqrt(npc_board.cells.size).to_i
+    board_cell_names = @npc_board.cells.keys
+    # require 'pry'; binding.pry
     sub_start = @npc_board.cells.keys.sample
 
     sub_size = 3
     sub = []
     sub.push(sub_start)
-
-    board_options = [][]
-
-
-
-
-
-
-
     # Need to see what the adjacent squares are on the board.
-    # =>
+    direction_choices = [1,2,3,4]
+    random_direction = direction_choices.sample
+    require 'pry'; binding.pry
+    game_board = @npc_board.cells.keys.each_slice(board_length).entries
 
-<<<<<<< HEAD
+
+    game_board
+
+    # this says: if the randomly selected cell is in the top row...you wont be able to select anything above it.
+    if (board_cell_names.size - board_cell_names.index(sub_start)) < board_length
+
+    elsif (board_cell_names)
+
+    end
+
+    if random_direction == 1
+      if (board_cell_names)
+      end
+    elsif random_direction == 2
+    elsif random_direction == 3
+    elsif random_direction == 4
+    end
+
     # ship_size = 3
     # array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     # chosen_cells = []
@@ -76,8 +89,9 @@ class Computer
   #   end
   #
   #   @npc_board.place(@npc_cruiser, cruiser_cells)
-  # end
+  end
   #
+
   def fire
     completed_shot = false
     until completed_shot == true
