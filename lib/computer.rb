@@ -9,83 +9,44 @@ class Computer
     @placed_ships = []
   end
 
-  def place_ships
-    sub_cells = []
-    cruiser_cells = []
-
-    # require 'pry'; binding.pry
-
-    # # while !valid_placement? [do]
-    # #   if @npc_board.cells.
-    # # end
-    # require 'pry'; binding.pry
-    submarine_length = 2
+  def place_ships(ship)
+    ship_length = ship.length
     board_length = Math.sqrt(@npc_board.cells.size).to_i
     board_array = @npc_board.cells.keys.each_slice(board_length).entries
-    # column_array = [][]
-    # require 'pry'; binding.pry
     # 1 = horizontal, 2 = vertical
     npc_decision = [1,2].sample
-    p "DEBUG: npc_decision: #{npc_decision}"
-    if npc_decision == 1
-      # find a sample row in the nested arrays
-      sample_row = board_array.sample
-      # find a random starting point within the random row.
-      start_cell = sample_row.sample
-
-      sub_cells << start_cell
-      start_index = sample_row.rindex(start_cell)
-
-      #if there is room to the right of the starting cell...
-      if start_index + (submarine_length - 1) < board_length
-        # iterate for the amount of cells needed to place the rest of a ship
-        (submarine_length-1).times do |num|
-          next_cell = sample_row[start_index + (num+1)]
-          # add the next cell to the list of spaces
-          sub_cells.push(next_cell)
-        end
-      # if there is room to the left of the starting cell...
-      elsif start_index - (submarine_length - 1) > 0
-        # iterate for the amount of cells needed to place the rest of a ship
-        (submarine_length-1).times do |num|
-          prev_cell = sample_row[start_index - (num+1)]
-          # add the previous cell to the list of spaces
-          sub_cells.push(prev_cell)
-        end
-      end
+    if npc_decision == 2
+      board_array = board_array.transpose
     else
-      # Computer decided to place a ship vertically.
-      # First sort by column in the nested arrays by column
-      require 'pry'; binding.pry
-      vertical_array = board_array.transpose
-      # Start sample row in the nested arrays
-      sample_column = vertical_array.sample
-      # find a random starting point within the random row.
-      start_cell = sample_column.sample
+      board_array
+    end
 
-      sub_cells << start_cell
-      start_index = sample_column.rindex(start_cell)
+    # find a sample row in the nested arrays
+    sample_cells = board_array.sample
+    # find a random starting point within the random row.
+    start_cell = sample_cells.sample
 
-      #if there is room above the starting cell...
-      if start_index + (submarine_length - 1) < board_length
-        # iterate for the amount of cells needed to place the rest of a ship
-        (submarine_length-1).times do |num|
-          next_cell = sample_column[start_index + (num+1)]
-          # add the next cell to the list of spaces
-          sub_cells.push(next_cell)
-        end
-      # if there is room to the left of the starting cell...
-      elsif start_index - (submarine_length - 1) > 0
-        # iterate for the amount of cells needed to place the rest of a ship
-        (submarine_length-1).times do |num|
-          prev_cell = sample_column[start_index - (num+1)]
-          # add the previous cell to the list of spaces
-          sub_cells.push(prev_cell)
-        end
+    ship_cells << start_cell
+    start_index = sample_cells.rindex(start_cell)
+
+    #if there is room to the right of the starting cell...
+    if start_index + (ship_length - 1) < board_length
+      # iterate for the amount of cells needed to place the rest of a ship
+      (ship_length - 1).times do |num|
+        next_cell = sample_cells[start_index + (num + 1)]
+        # add the next cell to the list of spaces
+        ship_cells.push(next_cell)
+      end
+    # if there is room to the left of the starting cell...
+    elsif start_index - (ship_length - 1) > 0
+      # iterate for the amount of cells needed to place the rest of a ship
+      (ship_length - 1).times do |num|
+        prev_cell = sample_cells[start_index - (num + 1)]
+        # add the previous cell to the list of spaces
+        ship_cells.push(prev_cell)
       end
     end
-    p sub_cells
-    require 'pry'; binding.pry
+
 
   # WORKING CODE
   #   sub_cells << @npc_board.cells.keys.sample
