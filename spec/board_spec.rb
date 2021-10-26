@@ -77,8 +77,8 @@ RSpec.describe Board do
   describe '#render' do
     it "cells render when placed" do
       @board.place(@cruiser, ["A1", "A2", "A3"])
-      expect(@board.render).to eq "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
-      expect(@board.render(true)).to eq "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(@board.render_board).to eq "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(@board.render_board(true)).to eq "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
     end
 
     it 'shows hits and misses' do
@@ -90,7 +90,7 @@ RSpec.describe Board do
       cell_1.fire_upon
       cell_2.fire_upon
       cell_11.fire_upon
-      expect(@board.render(true)).to eq "  1 2 3 4 \nA H H S . \nB . . . . \nC . . M . \nD . . . . \n"
+      expect(@board.render_board(true)).to eq "  1 2 3 4 \nA H H S . \nB . . . . \nC . . M . \nD . . . . \n"
     end
 
     it "shows sunk" do
@@ -101,7 +101,7 @@ RSpec.describe Board do
       cell_1.fire_upon
       cell_2.fire_upon
       cell_3.fire_upon
-      expect(@board.render(true)).to eq "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(@board.render_board(true)).to eq "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n"
     end
 
     it "can have a ship with a hit and ship marker" do
@@ -118,7 +118,7 @@ RSpec.describe Board do
       cell_3.fire_upon
       cell_13.fire_upon
       cell_14.fire_upon
-      expect(@board.render(true)).to eq "  1 2 3 4 \nA X X X . \nB . . . . \nC S . . . \nD H M . . \n"
+      expect(@board.render_board(true)).to eq "  1 2 3 4 \nA X X X . \nB . . . . \nC S . . . \nD H M . . \n"
     end
   end
 end
