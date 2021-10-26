@@ -26,14 +26,16 @@ describe Computer do
     it 'places two ships' do
       @npc.npc_board.cells.values.all? {|cell| cell.ship == nil}
       #go through each cell and evaluate the ship
-      @npc.place_ships
+      @npc.place_ships(@npc_sub)
+      @npc.place_ships(@npc_cruiser)
 
       expected = @npc.npc_board.cells.values.count {|cell| cell.ship != nil}
       expect(expected).to eq(5)
     end
 
     it 'has a cruiser and a sub' do
-      @npc.place_ships
+      @npc.place_ships(@npc_cruiser)
+      @npc.place_ships(@npc_sub)
       expected = @npc.npc_board.cells.values.count do |cell|
         if cell.ship != nil
           cell.ship.name == "Cruiser"
@@ -53,7 +55,8 @@ describe Computer do
 
     describe '#fire' do
       it 'can shoot at the players board' do
-        @npc.place_ships
+        @npc.place_ships(@npc_sub)
+        @npc.place_ships(@npc_cruiser)
         @npc.fire
         @npc.fire
         @npc.fire
