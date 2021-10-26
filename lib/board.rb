@@ -13,7 +13,11 @@ class Board
     if check_cells.length == ship.length
       if check_cells.all? {|cell| @cells[cell].empty?}
         place_in_row?(check_cells) || place_in_column?(check_cells)
+      else
+        false
       end
+    else
+      false
     end
   end
 
@@ -23,6 +27,8 @@ class Board
       #if first letter is the same checks if numbers are sequential
       seq_row = check_cells.map {|guess| guess[1]}
       seq_row.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
+    else
+      false
     end
   end
 
@@ -31,6 +37,8 @@ class Board
     if check_cells.sort.each_cons(2).all? {|one, two| one.ord == two.ord - 1}
       #if first letters are sequential then we can check the number is the same
       check_cells.map {|guess| guess[1]}.uniq.length == 1
+    else
+      false
     end
   end
 

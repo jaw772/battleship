@@ -10,7 +10,8 @@ class Computer
   end
 
   def place_ships
-
+    sub_cells = []
+    cruiser_cells = []
 
     sub_cells << @npc_board.cells.keys.sample
     sub_cells << @npc_board.cells.keys.sample
@@ -31,7 +32,7 @@ class Computer
       cruiser_cells[1] = @npc_board.cells.keys.sample
       cruiser_cells[2] = @npc_board.cells.keys.sample
     end
-  
+
     @npc_board.place(@npc_cruiser, cruiser_cells)
   end
 
