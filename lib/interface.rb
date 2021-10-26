@@ -16,6 +16,12 @@ class Interface
     if response.eql?('P')
       puts ''
       puts "Yes! The game is afoot, or aboat, ah you get it."
+      puts ''
+      puts "How many rows would you like?"
+      @row = gets.chomp
+      puts ''
+      puts "How many columns would you like?"
+      @column = gets.chomp
       setup_game
     elsif response.eql?('Q')
       puts ''
@@ -24,8 +30,8 @@ class Interface
   end
 
   def setup_game
-    @player_cells = CellGenerator.new.cells
-    @npc_cells = CellGenerator.new.cells
+    @player_cells = CellGenerator.new.cells(@row, @column)
+    @npc_cells = CellGenerator.new.cells(@row, @column)
     @player_board = Board.new(@player_cells)
     @npc_board = Board.new(@npc_cells)
     @npc_sub = Ship.new("Submarine", 2)
@@ -42,8 +48,7 @@ class Interface
     puts "Just waiting on you to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
     puts ''
-
-    puts @player_board.render_board
+    puts @player_board.render_board(@row, @column)
 
     puts "Enter the squares for the Cruiser (3 spaces):"
     place_in_cells = gets.chomp.upcase.split(' ')
@@ -72,9 +77,9 @@ class Interface
 
     until (@npc_cruiser.sunk? == true && @npc_sub.sunk? == true) || (@cruiser.sunk? == true && @submarine.sunk? == true) do
       puts "=============COMPUTER BOARD============="
-      puts @npc_board.render_board
+      puts @npc_board.render_board(@row, @column)
       puts "==============PLAYER BOARD=============="
-      puts @player_board.render_board(true)
+      puts @player_board.render_board(@row, @column, true)
 
       @completed_shot = false
       until @completed_shot == true
@@ -112,9 +117,9 @@ class Interface
     puts "************** GAME OVER ***************"
     puts ''
     puts "=============COMPUTER BOARD============="
-    puts @npc_board.render_board(true)
+    puts @npc_board.render_board(@row, @column, true)
     puts "==============PLAYER BOARD=============="
-    puts @player_board.render_board(true)
+    puts @player_board.render_board(@row, @column, true)
 
     if @npc_cruiser.sunk? == true && @npc_sub.sunk? == true
       puts "Congratulations! The computer has been defeated and you have won the game!!!"
