@@ -10,43 +10,55 @@ class Computer
   end
 
   def place_ships(ship)
+    ship_cells = []
     ship_length = ship.length
     board_length = Math.sqrt(@npc_board.cells.size).to_i
-    board_array = @npc_board.cells.keys.each_slice(board_length).entries
-    # 1 = horizontal, 2 = vertical
-    npc_decision = [1,2].sample
-    if npc_decision == 2
-      board_array = board_array.transpose
-    else
-      board_array
-    end
 
-    # find a sample row in the nested arrays
-    sample_cells = board_array.sample
-    # find a random starting point within the random row.
-    start_cell = sample_cells.sample
+    loop do
+      #@npc_board.cells.select { |cell| @npc_board.cells[cell].empty == false }
 
-    ship_cells << start_cell
-    start_index = sample_cells.rindex(start_cell)
-
-    #if there is room to the right of the starting cell...
-    if start_index + (ship_length - 1) < board_length
-      # iterate for the amount of cells needed to place the rest of a ship
-      (ship_length - 1).times do |num|
-        next_cell = sample_cells[start_index + (num + 1)]
-        # add the next cell to the list of spaces
-        ship_cells.push(next_cell)
+      board_array = @npc_board.cells.keys.each_slice(board_length).entries
+      # 1 = horizontal, 2 = vertical
+      npc_decision = [1,2].sample
+      if npc_decision == 2
+        board_array = board_array.transpose
+      else
+        board_array
       end
-    # if there is room to the left of the starting cell...
-    elsif start_index - (ship_length - 1) > 0
-      # iterate for the amount of cells needed to place the rest of a ship
-      (ship_length - 1).times do |num|
-        prev_cell = sample_cells[start_index - (num + 1)]
-        # add the previous cell to the list of spaces
-        ship_cells.push(prev_cell)
-      end
-    end
+      require 'pry'; binding.pry
+      # find a sample row in the nested arrays
+      sample_cells = board_array.sample
 
+      # find a random starting point within the random row.
+      start_cell = sample_cells.sample
+
+      ship_cells << start_cell
+      start_index = sample_cells.rindex(start_cell)
+
+
+      # p "DEBUG IS THIS THE LOOP"
+      #if there is room to the right of the starting cell...
+      if start_index + (ship_length - 1) < sample_cells.length
+        # iterate for the amount of cells needed to place the rest of a ship
+        (ship_length - 1).times do |num|
+          next_cell = sample_cells[start_index + (num + 1)]
+          # add the next cell to the list of spaces
+          ship_cells.push(next_cell)
+        end
+      # if there is room to the left of the starting cell...
+      elsif start_index - (ship_length - 1) > 0
+        # iterate for the amount of cells needed to place the rest of a ship
+        (ship_length - 1).times do |num|
+          prev_cell = sample_cells[start_index - (num + 1)]
+          # add the previous cell to the list of spaces
+          ship_cells.push(prev_cell)
+        end
+      end
+    break if @npc_board.valid_placement?(ship, ship_cells)
+    end
+    @npc_board.place(ship, ship_cells)
+    # require 'pry'; binding.pry
+  end
 
   # WORKING CODE
   #   sub_cells << @npc_board.cells.keys.sample
@@ -68,7 +80,7 @@ class Computer
   #   end
   #
   #   @npc_board.place(@npc_cruiser, cruiser_cells)
-  end
+
 
 
   def fire
