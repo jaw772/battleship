@@ -13,27 +13,98 @@ class Computer
     sub_cells = []
     cruiser_cells = []
 
-    sub_cells << @npc_board.cells.keys.sample
-    sub_cells << @npc_board.cells.keys.sample
+    # require 'pry'; binding.pry
 
+    # # while !valid_placement? [do]
+    # #   if @npc_board.cells.
+    # # end
+    # require 'pry'; binding.pry
+    submarine_length = 2
+    board_length = Math.sqrt(@npc_board.cells.size).to_i
+    board_array = @npc_board.cells.keys.each_slice(board_length).entries
+    # column_array = [][]
+    # require 'pry'; binding.pry
+    # 1 = horizontal, 2 = vertical
+    npc_decision = [1,2].sample
+    p "DEBUG: npc_decision: #{npc_decision}"
+    if npc_decision == 1
+      # find a sample row in the nested arrays
+      sample_row = board_array.sample
+      # find a random starting point within the random row.
+      start_cell = sample_row.sample
 
-    until @npc_board.valid_placement?(@npc_sub, sub_cells)
-      sub_cells[1] = @npc_board.cells.keys.sample
+      sub_cells << start_cell
+      start_index = sample_row.rindex(start_cell)
+
+      #if there is room to the right of the starting cell...
+      if start_index + (submarine_length - 1) < board_length
+        # iterate for the amount of cells needed to place the rest of a ship
+        (submarine_length-1).times do |num|
+          next_cell = sample_row[start_index + (num+1)]
+          # add the next cell to the list of spaces
+          sub_cells.push(next_cell)
+        end
+      # if there is room to the left of the starting cell...
+      elsif start_index - (submarine_length - 1) > 0
+        # iterate for the amount of cells needed to place the rest of a ship
+        (submarine_length-1).times do |num|
+          prev_cell = sample_row[start_index - (num+1)]
+          # add the previous cell to the list of spaces
+          sub_cells.push(prev_cell)
+        end
+      end
+    else
+      # Sort the nested arrays by column
+      vertical_array = board_array.transpose
+      # find a sample row in the nested arrays
+      sample_row = board_array.sample
+      # find a random starting point within the random row.
+      start_cell = sample_row.sample
+
+      sub_cells << start_cell
+      start_index = sample_row.rindex(start_cell)
+
+      #if there is room to the right of the starting cell...
+      if start_index + (submarine_length - 1) < board_length
+        # iterate for the amount of cells needed to place the rest of a ship
+        (submarine_length-1).times do |num|
+          next_cell = sample_row[start_index + (num+1)]
+          # add the next cell to the list of spaces
+          sub_cells.push(next_cell)
+        end
+      # if there is room to the left of the starting cell...
+      elsif start_index - (submarine_length - 1) > 0
+        # iterate for the amount of cells needed to place the rest of a ship
+        (submarine_length-1).times do |num|
+          prev_cell = sample_row[start_index - (num+1)]
+          # add the previous cell to the list of spaces
+          sub_cells.push(prev_cell)
+        end
+      end
     end
+    p sub_cells
+    require 'pry'; binding.pry
 
-    @npc_board.place(@npc_sub, sub_cells)
-
-    cruiser_cells << @npc_board.cells.keys.sample
-    cruiser_cells << @npc_board.cells.keys.sample
-    cruiser_cells << @npc_board.cells.keys.sample
-
-
-    until @npc_board.valid_placement?(@npc_cruiser, cruiser_cells)
-      cruiser_cells[1] = @npc_board.cells.keys.sample
-      cruiser_cells[2] = @npc_board.cells.keys.sample
-    end
-
-    @npc_board.place(@npc_cruiser, cruiser_cells)
+  # WORKING CODE
+  #   sub_cells << @npc_board.cells.keys.sample
+  #   sub_cells << @npc_board.cells.keys.sample
+  #
+  #   until @npc_board.valid_placement?(@npc_sub, sub_cells)
+  #     sub_cells[1] = @npc_board.cells.keys.sample
+  #   end
+  #
+  #   @npc_board.place(@npc_sub, sub_cells)
+  #
+  #   cruiser_cells << @npc_board.cells.keys.sample
+  #   cruiser_cells << @npc_board.cells.keys.sample
+  #   cruiser_cells << @npc_board.cells.keys.sample
+  #
+  #   until @npc_board.valid_placement?(@npc_cruiser, cruiser_cells)
+  #     cruiser_cells[1] = @npc_board.cells.keys.sample
+  #     cruiser_cells[2] = @npc_board.cells.keys.sample
+  #   end
+  #
+  #   @npc_board.place(@npc_cruiser, cruiser_cells)
   end
 
 
