@@ -87,9 +87,7 @@ class Computer
         end
       end
     end
-    # require 'pry'; binding.pry
     @npc_board.place(ship, ship_cells)
-    # require 'pry'; binding.pry
   end
 
   # WORKING CODE
