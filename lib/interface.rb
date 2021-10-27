@@ -37,7 +37,8 @@ class Interface
   end
 
   def setup_ships
-    @npc.place_ships
+    @npc.place_ships(@npc_cruiser)
+    @npc.place_ships(@npc_sub)
     puts "My ships are already ready."
     puts "Just waiting on you to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
