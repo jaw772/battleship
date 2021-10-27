@@ -90,29 +90,6 @@ class Computer
     @npc_board.place(ship, ship_cells)
   end
 
-  # WORKING CODE
-  #   sub_cells << @npc_board.cells.keys.sample
-  #   sub_cells << @npc_board.cells.keys.sample
-  #
-  #   until @npc_board.valid_placement?(@npc_sub, sub_cells)
-  #     sub_cells[1] = @npc_board.cells.keys.sample
-  #   end
-  #
-  #   @npc_board.place(@npc_sub, sub_cells)
-  #
-  #   cruiser_cells << @npc_board.cells.keys.sample
-  #   cruiser_cells << @npc_board.cells.keys.sample
-  #   cruiser_cells << @npc_board.cells.keys.sample
-  #
-  #   until @npc_board.valid_placement?(@npc_cruiser, cruiser_cells)
-  #     cruiser_cells[1] = @npc_board.cells.keys.sample
-  #     cruiser_cells[2] = @npc_board.cells.keys.sample
-  #   end
-  #
-  #   @npc_board.place(@npc_cruiser, cruiser_cells)
-
-
-
   def fire
     completed_shot = false
     until completed_shot == true
