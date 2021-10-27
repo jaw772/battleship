@@ -14,7 +14,7 @@ class Computer
     board_length = Math.sqrt(@npc_board.cells.size).to_i
     it_works = false
 
-    until it_works do
+    until it_works do 
       ship_cells = []
       board_array = []
 
