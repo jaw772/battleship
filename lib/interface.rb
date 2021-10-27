@@ -21,7 +21,7 @@ class Interface
       puts ''
       puts "Fine we didn't want to play with you anyways..."
     end
-  end
+  end 
 
   def setup_game
     @player_cells = CellGenerator.new.cells
@@ -46,7 +46,7 @@ class Interface
 
     puts @player_board.render_board
 
-    puts "Enter the squares for the Cruiser (3 spaces):"
+    puts "Enter the squares for the Cruiser (3 squares), separated by spaces:"
     place_in_cells = gets.chomp.upcase.split(' ')
 
     until @player_board.place(@cruiser, place_in_cells) == true do
@@ -55,7 +55,7 @@ class Interface
       place_in_cells = gets.chomp.upcase.split(' ')
     end
 
-    puts "Enter the squares for the Submarine (2 spaces):"
+    puts "Enter the squares for the Submarine (2 squares), separated by spaces:"
     place_in_cells = gets.chomp.upcase.split(' ')
 
     until @player_board.place(@submarine, place_in_cells) == true do
