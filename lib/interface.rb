@@ -21,7 +21,7 @@ class Interface
       puts ''
       puts "Fine we didn't want to play with you anyways..."
     end
-  end
+  end 
 
   def setup_game
     @player_cells = CellGenerator.new.cells
